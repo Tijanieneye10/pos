@@ -12,6 +12,8 @@ use App\Http\Livewire\Product\Products;
 use App\Http\Livewire\Product\Categories;
 use App\Http\Livewire\Sales\PointOfSales;
 use App\Http\Livewire\Auth\ChangePassword;
+use App\Http\Livewire\Sales\SalesExportRecords;
+use App\Http\Livewire\Expense\ExpenseExportRecords;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,17 +25,28 @@ use App\Http\Livewire\Auth\ChangePassword;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/login',  [Login::class, 'index'])->name('login');
-Route::get('/printer',  [Printer::class, 'show'])->name('printer');
-Route::post('/login',  [Login::class, 'store']);
 
-Route::get('/', Home::class)->name('home')->middleware(['auth']);
-Route::get('/products', Products::class)->middleware(['auth']);
-Route::get('/sales', GetSales::class)->middleware(['auth'])->name('sales');
-Route::get('/manage-user', Register::class)->middleware(['auth']);
-Route::get('/change-password', ChangePassword::class)->middleware(['auth'])->name('changePassword');
-Route::get('/product-category', Categories::class)->middleware(['auth'])->name('category');
-Route::get('/products', Products::class)->middleware(['auth'])->name('products');
-Route::get('/point-of-sales', PointOfSales::class)->middleware(['auth'])->name('pos');
-Route::get('/view-sales/{invoice}', ViewSales::class)->middleware(['auth'])->name('viewSales');
-Route::get('/expenses', Expenses::class)->middleware(['auth'])->name('expenses');
+Route::get('/login',  [Login::class, 'index'])->name('login');
+Route::post('/login',  [Login::class, 'store']);
+Route::get('/printer',  [Printer::class, 'show'])->name('printer');
+
+Route::post('/sales-records-download',  [Printer::class, 'salesRecordsDownload'])
+    ->name('salesRecordsDownload');
+Route::post('/expenses-records-download',  [Printer::class, 'expensesRecordsDownload'])
+    ->name('expensesRecordsDownload');
+
+Route::group(['middleware' => 'auth'], function () {
+
+    Route::get('/', Home::class)->name('home');
+    Route::get('/products', Products::class);
+    Route::get('/sales', GetSales::class)->name('sales');
+    Route::get('/manage-user', Register::class);
+    Route::get('/change-password', ChangePassword::class)->name('changePassword');
+    Route::get('/product-category', Categories::class)->name('category');
+    Route::get('/products', Products::class)->name('products');
+    Route::get('/point-of-sales', PointOfSales::class)->name('pos');
+    Route::get('/view-sales/{invoice}', ViewSales::class)->name('viewSales');
+    Route::get('/export-sales', SalesExportRecords::class)->name('salesExport');
+    Route::get('/expenses', Expenses::class)->name('expenses');
+    Route::get('/expenses-records', ExpenseExportRecords::class)->name('expensesRecord');
+});

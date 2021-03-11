@@ -32,6 +32,13 @@
                                 <span class="nav-text">Dashboard</span>
                             </a>
                         </li>
+                        
+                        <li>
+                            <a href="{{ route('pos') }}">
+                                <span class="nav-icon"><i class="fa fa-shopping-cart"></i></span>
+                                <span class="nav-text">Point of Sales</span>
+                            </a>
+                        </li>
                         @can('isAdmin')
                         <li>
                             <a>
@@ -44,12 +51,27 @@
                                 <li><a href="/manage-user"><span class="nav-text">Manage User</span></a></li>
                             </ul>
                         </li>
-                        @endcan
+                        <li>
+                            <a>
+                                <span class="nav-caret"><i class="fa fa-caret-down"></i></span>
+                                <span class="nav-icon"><i class="fa fa-edit"></i></span>
+                                <span class="nav-text">Generate Report</span>
+                            </a>
 
+                            <ul class="nav-sub">
+                                <li><a href="{{ route('salesExport') }}"><span class="nav-text">Sales Report</span></a>
+                                </li>
+                            </ul>
+                            <ul class="nav-sub">
+                                <li><a href="{{ route('expensesRecord') }}"><span class="nav-text">Expenses
+                                            Report</span></a></li>
+                            </ul>
+                        </li>
+                        @endcan
 
                         <li>
                             <a href="{{ route('category') }}">
-                                <span class="nav-icon"><i class="fa fa-product-hunt"></i></span>
+                                <span class="nav-icon"><i class="fa fa-sitemap "></i></span>
                                 <span class="nav-text">Manage Category</span>
                             </a>
                         </li>
@@ -61,17 +83,10 @@
                         </li>
 
                         <li>
-                            <a href="{{ route('pos') }}">
-                                <span class="nav-icon"><i class="fa fa-shopping-cart"></i></span>
-                                <span class="nav-text">Point of Sales</span>
-                            </a>
-                        </li>
-
-                        <li>
                             <a href="{{ route('sales') }}"> <span class="nav-icon"> <i class="fa fa-money"></i>
                                 </span> <span class="nav-text">Sales</span> </a> </li>
                         <li>
-                            <a href="{{ route('expenses') }}"> <span class="nav-icon"> <i class="fa fa-money"></i>
+                            <a href="{{ route('expenses') }}"> <span class="nav-icon"> <i class="fa fa-book"></i>
                                 </span> <span class="nav-text">Expenses</span> </a> </li>
 
                         <li class="pb-2 hidden-folded"></li>

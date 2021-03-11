@@ -12,13 +12,15 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 class ShoppingCart extends Component
 {
     use StoreTrait;
-    protected $listeners = ['storeData', 'destroyCart'];
+    protected $listeners = ['storeData', 'destroyCart', 'afterPrint'];
+
     // store data
     public function storeData($productId, $name, $price)
     {
         $QTY = 1;
         Cart::add($productId, $name, $QTY, $price)->associate(Product::class);
-        $this->emit('alert', ['type' => 'success', 'message' => 'Product added to cart 😀']);
+        $this->dispatchBrowserEvent('alert',  ['type' => 'success', 'message' => 'Product added to cart 😊']);
+        $this->emit('reloadReceiptIframe');
     }
 
     // increase cart quantity
@@ -27,6 +29,7 @@ class ShoppingCart extends Component
         $product = Cart::get($rowId);
         $qty = $product->qty + 1;
         Cart::update($rowId, $qty);
+        $this->emit('reloadReceiptIframe');
     }
 
     // decrease cart quantity
@@ -35,6 +38,7 @@ class ShoppingCart extends Component
         $product = Cart::get($rowId);
         $qty = $product->qty - 1;
         Cart::update($rowId, $qty);
+        $this->emit('reloadReceiptIframe');
     }
 
     // Delete from cart
@@ -42,13 +46,15 @@ class ShoppingCart extends Component
     {
         Cart::remove($rowId);
         $this->emit('alert', ['type' => 'error', 'message' => 'Product removed from cart. 😀']);
+        $this->emit('reloadReceiptIframe');
     }
 
     // Clear everything on cart
     public function destroyCart()
     {
         Cart::destroy();
-        $this->emit('alert', ['type' => 'error', 'message' => 'Cart cleared 😱']);
+        $this->dispatchBrowserEvent('alert',  ['type' => 'error', 'message' => 'Cart cleared 😱']);
+        $this->emit('reloadReceiptIframe');
     }
 
     // Store cart
@@ -56,10 +62,16 @@ class ShoppingCart extends Component
     {
         // from storeTrait
         $this->storeCartItem($request);
-        $this->emit('alert', ['type' => 'success', 'message' => 'Sales processed 😊']);
+        $this->dispatchBrowserEvent('alert',  ['type' => 'success', 'message' => 'Sales processed 😊']);
         $this->emit('print');
+    }
+
+    // Once a job is send to printer, after print clear cart
+    public function afterPrint()
+    {
         $this->destroyCart();
     }
+
     public function render()
     {
         return view('livewire.sales.shopping-cart');

@@ -40,20 +40,32 @@
             </tr>
         </tbody>
     </table>
-    <button class="btn btn-primary btn-block mt-3" {{ Cart::count() < 1 ?  'disabled' : ''  }} wire:click="storeCart">Save and Print</button>
-    <button class="btn btn-danger btn-block mt-3" {{ Cart::count() < 1 ?  'disabled' : ''  }} wire:click="$emit('destroyCart')">Clear Cart</button>
+    <button class="btn btn-primary btn-block mt-3" {{ Cart::count() < 1 ?  'disabled' : ''  }}
+        wire:click="storeCart">Save and Print</button>
+    <button class="btn btn-danger btn-block mt-3" {{ Cart::count() < 1 ?  'disabled' : ''  }}
+        wire:click="$emit('destroyCart')">Clear Cart</button>
 </div>
 
-<iframe src="{{ route('printer') }}" style="visibility:hidden;" name="frame" id="frame"></iframe>
+{{-- Iframe  to load receipt  --}}
+<iframe src="{{ route('printer') }}" style="visibility:hidden" name="frame" id="frame"></iframe>
 
 @push('js')
 <script>
-        window.livewire.on('print', () =>{
-            let myIframe = document.getElementById("frame").contentWindow;
-            myIframe.focus();
-            myIframe.print();
+    // ** This listen to print event and print out receipt
+    window.livewire.on('print', () =>{
+            setTimeout(()=>{
+                let iframeReceipt = document.getElementById("frame").contentWindow;
+                 iframeReceipt.focus();
+                iframeReceipt.print();
+            }, 100)
+
+            setTimeout( () => Livewire.emit('afterPrint'), 109);
             return false;
+        })
+
+        // ** Reload the iframe anytime action is taken on shoppingcart **//
+        window.livewire.on('reloadReceiptIframe', ()=>{
+            document.getElementById("frame").src+= ' ';
         })
 </script>
 @endpush
-

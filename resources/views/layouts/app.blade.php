@@ -63,7 +63,7 @@
     </div>
 
     <!-- Plugins -->
-
+    @livewireScripts
     {{-- <script src="{{ asset('assets/plugins/pjax/pjax.js')}}"></script> --}}
     <script src="{{ asset('assets/js/lazyload.config.js')}}"></script>
     <script src="{{ asset('assets/js/lazyload.js')}}"></script>
@@ -73,13 +73,15 @@
     <script src="{{ asset('assets/js/theme.js')}}"></script>
     {{-- <script src="{{ asset('assets/js/ajax.js')}}"></script> --}}
     <script src="{{ asset('assets/js/app.js')}}"></script>
-    @livewireScripts
+
     <script>
-        window.livewire.on('alert', param => {
-            toastr[param['type']](param['message']);
-        });
+        window.addEventListener('alert', param=>{
+            toastr[param.detail['type']](param.detail['message']);
+        })
+
     </script>
     <script src="{{ asset('js/wireturbolinks.js') }}" data-turbolinks-eval="false"></script>
+    {{-- Added Javascripts --}}
     @stack('js')
 </body>
 

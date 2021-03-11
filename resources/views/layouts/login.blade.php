@@ -28,7 +28,7 @@
                 <!-- Brand -->
                 <a href="index.html" class="navbar-brand">
                     <img src="{{ asset('assets/images/logo.svg') }}" alt="Logo" />
-                    <span class="hidden-folded d-inline">Annex</span>
+                    <span class="hidden-folded d-inline">NVSERVICES</span>
                 </a>
 
             </div>

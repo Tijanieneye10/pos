@@ -1,11 +1,11 @@
 //Lazyload config
 var MODULE_CONFIG = {
-    chat:           [
-                      'plugins/list.js/list.js',
-                      'plugins/notie/notie.min.js',
-                      'js/plugins/notie.js',
-                      'js/app/chat.js'
-                    ],
+    // chat:           [
+    //                   'plugins/list.js/list.js',
+    //                   'plugins/notie/notie.min.js',
+    //                   'js/plugins/notie.js',
+    //                   'js/app/chat.js'
+    //                 ],
     mail:           [
                       'plugins/list.js/list.js',
                       'plugins/notie/notie.min.js',
@@ -43,7 +43,7 @@ var MODULE_CONFIG = {
                       'js/plugins/sortable.js'
                     ],
     easyPieChart:   [
-                      'plugins/easy-pie-chart/jquery.easypiechart.min.js' 
+                      'plugins/easy-pie-chart/jquery.easypiechart.min.js'
                     ],
     peity:          [
                       'plugins/peity/jquery.peity.js',
@@ -95,11 +95,11 @@ var MODULE_CONFIG = {
     parsley:        [
                       'plugins/parsleyjs/parsley.min.js'
                     ],
-    select2:        [
-                      'plugins/select2/css/select2.min.css',
-                      'plugins/select2/js/select2.min.js',
-                      'js/plugins/select2.js'
-                    ],
+    // select2:        [
+    //                   'plugins/select2/css/select2.min.css',
+    //                   'plugins/select2/js/select2.min.js',
+    //                   'js/plugins/select2.js'
+    //                 ],
     summernote:     [
                       'plugins/summernote/summernote.css',
                       'plugins/summernote/summernote-bs4.css',

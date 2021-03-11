@@ -10,6 +10,7 @@ class Shoppingcart extends Model
 {
     use HasFactory;
     protected $guarded = [];
+    // protected $dates = ['created_at'];
 
     public function user()
     {

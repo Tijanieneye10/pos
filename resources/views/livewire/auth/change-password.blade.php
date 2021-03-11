@@ -15,18 +15,18 @@
                     </div>
                     <div class="form-group">
                         <label for="">Old Password</label>
-                        <input type="password" placeholder="Enter Old Password" class="form-control" wire:model="old">
+                        <input type="password" placeholder="Enter Old Password" class="form-control" wire:model.lazy="old">
                         @error('old') <span class="text-danger">{{ $message }}</span>@enderror
                     </div>
                     <div class="form-group">
                         <label for="">New Password</label>
-                        <input type="password" placeholder="Enter New Password" class="form-control" wire:model="password">
+                        <input type="password" placeholder="Enter New Password" class="form-control" wire:model.lazy="password">
                         @error('password') <span class="text-danger">{{ $message }}</span>@enderror
                     </div>
                     <div class="form-group">
                         <label for="">Confirm Password</label>
                         <input type="password" placeholder="Confirmed Password"
-                            class="form-control" wire:model="password_confirmation">
+                            class="form-control" wire:model.lazy="password_confirmation">
                     </div>
                     <button type="submit" class="btn btn-primary">Change Password</button>
                 </form>
